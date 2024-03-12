@@ -1,6 +1,6 @@
 from __future__ import annotations
 import math
-
+import doctest
 
 class Circle:
 
@@ -9,6 +9,10 @@ class Circle:
         
         :param radius: radius of the circle, may be zero.
         :raises ValueError: if radius is negative.
+        >>> Circle(-5)
+        Traceback (most recent call last):
+            ...
+        ValueError: radius must be non-negative
         """
         if radius < 0:
             raise ValueError("radius must be non-negative")
@@ -19,14 +23,14 @@ class Circle:
         area of this circle and another circle.
         Since area is pi*r**2, the radii of the 3 circles
         should form a Pythagorean triple (r1^2 + r2^2 = r3^2)
+        >>> Circle(3).add_area(Circle(4)).get_radius()
+        5.0
         """
+
         r1 = self.get_radius()
         r2 = circle.get_radius()
-        # this is important, so show the operation in a rounded-box
-        # on the Circle lifeline, or show it as a comment.
         r = math.hypot(r1, r2)
-        # In a sequence diagram create a name for the new circle
-        # so that you can show what is being returned.
+        
         return Circle(r)
 
     def get_area(self) -> float:
@@ -39,3 +43,6 @@ class Circle:
         return f"Circle({self.radius})"
     
     __repr__ = __str__
+
+if __name__ == "__main__":
+    doctest.testmod()
